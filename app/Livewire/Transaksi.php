@@ -56,17 +56,19 @@ class Transaksi extends Component
 
     public function updatedKode(): void
     {
+        $this->kembalian = $this->bayar - (float) $this->totalSemuaBelanja;
+
         $produk = Produk::where('kode', $this->kode)->first();
         if ($produk && $produk->stok > 0) {
             $detil = DetilTransaksi::firstOrNew([
                 'transaksi_id' => $this->transaksiAktif->id,
                 'produk_id' => $produk->id
             ], [
-                'jumlah => 0'
+                'jumlah' => 0
             ]);
             $detil->jumlah += 1;
             $detil->save();
-            $produk->stok-= 1;
+            $produk->stok -= 1;
             $produk->save();
             $this->reset('kode');
         }

@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Laporan Transaksi</h4>
+                        <a href="{{ url('/cetak') }}" target="_blank">Cetak</a>
                         <table class="table table-bordered">
                             <thead>
                                 <th>No</th>
@@ -16,7 +17,7 @@
                                 @foreach ($semuaTransaksi as $transaksi)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $transaksi->create_at }}</td>
+                                        <td>{{ $transaksi->created_at }}</td>
                                         <td>{{ $transaksi->kode }}</td>
                                         <td>{{ number_format($transaksi->total, 2, ',', '.') }}</td>
                                     </tr>

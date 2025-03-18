@@ -15,7 +15,7 @@
                 <div class="col-8">
                     <div class="card border-primary">
                         <div class="card-body">
-                            <h4 class="card-title">No Invoice : </h4>
+                            <h4 class="card-title">No Invoice : {{ $transaksiAktif->kode }}</h4>
                             <input type="text" class="form-control" placeholder="No. Invoice" wire:model.live="kode">
                             <table class="table table-bordered">
                                 <thead>
@@ -56,14 +56,14 @@
                             <h4 class="card-title">Total Biaya</h4>
                             <div class="d-flex justify-content-between">
                                 <span>Rp. </span>
-                                <span>{{ number_format('9898988', 2, ',', '.') }}</span>
+                                <span>{{ number_format($totalSemuaBelanja, 2, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="card border-primary mt-2">
                         <div class="card-body">
                             <h4 class="card-title">Bayar</h4>
-                            <input type="number" class="form-control" placeholder="Masukan Nominal..." wire:model.live="bayar>
+                            <input type="number" class="form-control" placeholder="Masukan Nominal..." wire:model.live="bayar">
                         </div>
                     </div>
                     <div class="card border-primary mt-2">
@@ -76,13 +76,12 @@
                         </div>
                     </div>
                     @if($bayar)
-                        @if (kembalian < 0)
+                        @if ($kembalian < 0)
                         <div class="alert alert-danger mt-2" role="alert">
                             Uang Kurang
                         </div>
-                        @elseif (kembalian >- 0)
+                        @elseif ($kembalian >- 0)
                         <button class="btn btn-success mt-2 w-100" wire:click='transaksiSelesai'>Bayar</button>
-                        <h4 class="card-title">No Invoice : {{ $transaksiAktif->kode }}</h4>
                         @endif
                     @endif
                 </div>

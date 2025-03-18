@@ -7,9 +7,27 @@ use App\Models\Produk as ModelProduk;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\Produk as ImportProduk;
+use Illuminate\Support\Facades\Auth;
 
 class Produk extends Component
 {
+    use WithFileUploads;
+
+    public $fileExcel;
+
+    public function imporExcel(): void
+    {
+        Excel::import(new ImportProduk, $this->fileExcel);
+        $this->reset();
+    }
+
+    public function mount(): void
+    {
+        if (Auth::user()->role != 'admin') {
+            abort(403);
+        }
+    }
+
     public $pilihanMenu = 'lihat';
 
     public function pilihMenu($menu): void
@@ -107,13 +125,4 @@ class Produk extends Component
         $this->pilihMenu('lihat');
     }
 
-    use WithFileUploads;
-
-    public $fileExcel;
-
-    public function imporExcel(): void
-    {
-        Excel::import(new ImportProduk, $this->fileExcel);
-        $this->reset();
-    }
 }

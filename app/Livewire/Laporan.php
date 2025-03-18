@@ -11,6 +11,6 @@ class Laporan extends Component
     public function render(): View
     {
         $semuaTransaksi = Transaksi::where('status', 'selesai')->get();
-        return view('livewire.laporan')->with(['semuaTransasksi' => $semuaTransaksi]);
+        return view('livewire.laporan')->with(['semuaTransaksi' => $semuaTransaksi]);
     }
 }

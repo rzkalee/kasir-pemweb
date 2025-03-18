@@ -104,4 +104,11 @@ class User extends Component
         $this->reset('nama', 'email', 'peran', 'penggunaTerpilih');
         $this->pilihMenu('lihat');
     }
+
+    public function mount(): void
+    {
+        if (auth()->user()->role != 'admin') {
+            abort(403);
+        }
+    }
 }
