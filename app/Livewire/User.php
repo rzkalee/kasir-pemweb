@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User as ModelUser;
 
 class User extends Component
@@ -107,7 +108,7 @@ class User extends Component
 
     public function mount(): void
     {
-        if (auth()->user()->role != 'admin') {
+        if (Auth::user()->role != 'admin') {
             abort(403);
         }
     }
