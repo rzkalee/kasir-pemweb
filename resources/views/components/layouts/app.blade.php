@@ -75,11 +75,11 @@
                         </li>
 
                         <!-- Dropdown Profil & Logout -->
-                        <li class="relative group">
-                            <button class="nav-link relative text-[#C5A787] after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#AC8764] after:transition-all after:duration-300 hover:after:w-full">
+                        <li class="relative">
+                            <button id="dropdown-btn" class="nav-link relative text-[#C5A787] after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#AC8764] after:transition-all after:duration-300 hover:after:w-full">
                                 {{ Auth::user()->name }}
                             </button>
-                            <div class="absolute right-0 mt-2 bg-[#5C3A2C] border border-[#A67C52] rounded-lg shadow-lg hidden group-hover:block">
+                            <div id="dropdown-menu" class="absolute right-0 mt-2 bg-[#5C3A2C] border border-[#A67C52] rounded-lg shadow-lg hidden">
                                 <a href="{{ route('logout') }}" 
                                    class="block px-4 py-2 text-white hover:bg-[#A67C52]"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -89,7 +89,7 @@
                                     @csrf
                                 </form>
                             </div>
-                        </li>
+                        </li>                                        
                     @endguest
                 </ul>
             </div>
@@ -102,3 +102,31 @@
     </div>
 </body>
 </html>
+
+<script>
+    const dropdownBtn = document.getElementById('dropdown-btn');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    let timeout;
+
+    dropdownBtn.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        dropdownMenu.classList.remove('hidden');
+    });
+
+    dropdownMenu.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+    });
+
+    dropdownMenu.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            dropdownMenu.classList.add('hidden');
+        }, 300);
+    });
+
+    dropdownBtn.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            dropdownMenu.classList.add('hidden');
+        }, 300);
+    });
+</script>
