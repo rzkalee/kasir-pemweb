@@ -7,6 +7,9 @@ use App\Models\Produk;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use App\Models\Transaksi as ModelsTransaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class Transaksi extends Component
 {
@@ -41,18 +44,18 @@ class Transaksi extends Component
 
     public function render(): View
     {
-        if($this->transaksiAktif){
+        if ($this->transaksiAktif) {
             $semuaProduk = DetilTransaksi::where('transaksi_id', $this->transaksiAktif->id)->get();
-            $this->totalSemuaBelanja = $semuaProduk->sum(function($detil){
-                return $detil->jumlah * $detil->produk->harga;
-            });
+            $this->totalSemuaBelanja = $semuaProduk->sum(fn($detil) => $detil->jumlah * $detil->produk->harga);
         } else {
             $semuaProduk = [];
         }
-        return view('livewire.transaksi')->with([
+        
+        return view('livewire.transaksi', [
             'semuaProduk' => $semuaProduk
         ]);
     }
+    
 
     public function updatedKode(): void
     {
@@ -90,10 +93,64 @@ class Transaksi extends Component
         $detil->delete();
     }
 
-    public function transaksiSelesai(): void {
+    public function transaksiSelesai()
+    {
+        if (!$this->transaksiAktif) {
+            return;
+        }
+    
+        $transaksi = $this->transaksiAktif;
         $this->transaksiAktif->total = $this->totalSemuaBelanja;
         $this->transaksiAktif->status = 'selesai';
         $this->transaksiAktif->save();
+    
+        $pdf = Pdf::loadView('livewire.nota', [
+            'transaksi' => $transaksi,
+            'produk' => DetilTransaksi::where('transaksi_id', $transaksi->id)->get()
+        ]);
+    
+        $fileName = 'Nota_' . str_replace(['/', '\\'], '_', $transaksi->kode) . '.pdf';
+    
         $this->reset();
+    
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $fileName);
     }
+
+    public function tambahJumlah($produkId)
+    {
+        $detil = DetilTransaksi::find($produkId);
+        if ($detil) {
+            $produk = Produk::find($detil->produk_id);
+            if ($produk->stok > 0) { 
+                $detil->jumlah += 1;
+                $detil->save();
+                $produk->stok -= 1;
+                $produk->save();
+                $this->hitungTotal();
+            }
+        }
+    }
+
+    public function kurangiJumlah($produkId)
+    {
+        $detil = DetilTransaksi::find($produkId);
+        if ($detil && $detil->jumlah > 1) { 
+            $produk = Produk::find($detil->produk_id);
+            $detil->jumlah -= 1;
+            $detil->save();
+            $produk->stok += 1;
+            $produk->save();
+            $this->hitungTotal();
+        }
+    }
+
+    private function hitungTotal()
+    {
+        $this->totalSemuaBelanja = DetilTransaksi::where('transaksi_id', $this->transaksiAktif->id)
+            ->get()
+            ->sum(fn($detil) => $detil->jumlah * $detil->produk->harga);
+    }
+
 }

@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-white flex flex-col items-center p-6 bg-[#4E2A1D]">
+<body class=" text-white p-6 bg-[#4E2A1D]">
     <div id="app">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full bg-[#5C3A2C] bg-opacity-80 backdrop-blur-md p-4 flex justify-between items-center shadow-md z-50">
