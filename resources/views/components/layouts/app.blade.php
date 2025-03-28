@@ -3,18 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Girassol&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -74,11 +66,36 @@
                             </a>
                         </li>
 
-                        <!-- Dropdown Profil & Logout -->
                         <li class="relative">
-                            <button id="dropdown-btn" class="nav-link relative text-[#C5A787] after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#AC8764] after:transition-all after:duration-300 hover:after:w-full">
+                            <button id="dropdown-btn" class="nav-link relative text-[#C5A787] uppercase border border-[#AC8764] px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[#AC8764]/20 transition-all duration-300">
+                                @if (Auth::user()->role == 'admin')
+                                    <!-- Ikon Admin -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#C5A787]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 3h18v18H3z"></path>
+                                        <path d="M9 9h6v6H9z"></path>
+                                    </svg>
+                                @elseif (Auth::user()->role == 'kasir')
+                                    <!-- Ikon Kasir -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#C5A787]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16v16H4z"></path>
+                                        <path d="M8 8h8v8H8z"></path>
+                                    </svg>
+                                @elseif (Auth::user()->role == 'manager')
+                                    <!-- Ikon Manager -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#C5A787]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="8" r="4"></circle>
+                                        <path d="M4 20a8 8 0 0 1 16 0"></path>
+                                    </svg>
+                                @else
+                                    <!-- Ikon Default -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#C5A787]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 16v-4m0-4h.01"></path>
+                                    </svg>
+                                @endif
+                            
                                 {{ Auth::user()->name }}
-                            </button>
+                            </button>                                                                                
                             <div id="dropdown-menu" class="absolute right-0 mt-2 bg-[#5C3A2C] border border-[#A67C52] rounded-lg shadow-lg hidden">
                                 <a href="{{ route('logout') }}" 
                                    class="block px-4 py-2 text-white hover:bg-[#A67C52]"
@@ -96,7 +113,7 @@
         </nav>
 
         <!-- Main Content (Tambahkan Padding agar Tidak Tertutup Navbar) -->
-        <main class="pt-20 pb-8">
+        <main class="pt-20 pb-8 px-10">
             {{$slot}}
         </main>
     </div>

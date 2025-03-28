@@ -19,7 +19,7 @@
 
         <!-- Tabel Data Pengguna -->
         @if ($pilihanMenu == 'lihat')
-        <div class="bg-[#5C3A2C] w-full h-[450px] mt-20 px-10 rounded-lg shadow-lg">
+        <div class="bg-[#5C3A2C] w-full h-auto mt-10 p-6 rounded-lg shadow-lg">
             <table class="w-full border border-[#A67C52] text-center">
                 <thead class="bg-[#A67C52] text-white">
                     <tr>
@@ -55,7 +55,7 @@
 
         <!-- Form Tambah & Edit Pengguna -->
         @elseif ($pilihanMenu == 'tambah' || $pilihanMenu == 'edit')
-        <div class="bg-[#5C3A2C] p-6 rounded-lg shadow-lg">
+        <div class="bg-[#5C3A2C] w-full h-auto mt-10 p-6 rounded-lg shadow-lg">
             <form wire:submit.prevent="{{ $pilihanMenu == 'tambah' ? 'simpan' : 'simpanEdit' }}">
                 <label class="block mb-2">Nama</label>
                 <input type="text" class="w-full p-2 border rounded-md bg-white text-black" wire:model='nama'>
@@ -93,10 +93,11 @@
 
         <!-- Konfirmasi Hapus Pengguna -->
         @elseif ($pilihanMenu == 'hapus')
-        <div class="bg-red-700 p-6 rounded-lg text-white shadow-lg">
+        <div class="bg-[#5C3A2C] w-full h-auto mt-10 p-6 rounded-lg shadow-lg">
             <h2 class="text-xl font-bold">Konfirmasi Hapus</h2>
             <p class="mt-4">Anda yakin ingin menghapus pengguna ini?</p>
             <p class="mt-2 font-semibold">Nama: {{ $penggunaTerpilih->name }}</p>
+            <p class="mt-2 font-semibold">Peran: {{ $penggunaTerpilih->role }}</p>
             <div class="mt-6 flex space-x-4">
                 <button class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition" wire:click='hapus'>
                     Hapus
