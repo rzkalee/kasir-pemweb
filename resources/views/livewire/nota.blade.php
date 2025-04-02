@@ -15,6 +15,8 @@
     <h2>Nota Pembelian</h2>
     <p>No Invoice: {{ $transaksi->kode }}</p>
     <p>Tanggal: {{ $transaksi->created_at->format('d/m/Y H:i') }}</p>
+    <p>Kasir: {{ $transaksi->kasir->name }}</p>
+
 
     <table>
         <thead>

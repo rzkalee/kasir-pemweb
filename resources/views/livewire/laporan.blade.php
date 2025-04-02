@@ -10,12 +10,13 @@
     <!-- Tabel Laporan -->
     <div class="overflow-x-auto">
         <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
-            <thead class="bg-[#5C3A2C] text-white">
+            <thead class="bg-[#C5A2C] text-white">
                 <tr>
                     <th class="px-4 py-2">No</th>
                     <th class="px-4 py-2">Tanggal</th>
                     <th class="px-4 py-2">No. Inv.</th>
                     <th class="px-4 py-2">Total</th>
+                    <th class="px-4 py-2">Kasir</th> <!-- Tambah kolom kasir -->
                 </tr>
             </thead>
             <tbody class="text-center text-[#5C3A2C]">
@@ -25,6 +26,9 @@
                         <td class="px-4 py-2 text-white">{{ $transaksi->created_at }}</td>
                         <td class="px-4 py-2 text-white">{{ $transaksi->kode }}</td>
                         <td class="px-4 py-2 text-white">Rp {{ number_format($transaksi->total, 2, ',', '.') }}</td>
+                        <td class="px-4 py-2 text-white">
+                            {{ $transaksi->kasir->name ?? 'Tidak Diketahui' }} <!-- Nama kasir -->
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

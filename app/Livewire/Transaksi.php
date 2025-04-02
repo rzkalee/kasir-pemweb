@@ -10,6 +10,7 @@ use App\Models\Transaksi as ModelsTransaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 class Transaksi extends Component
 {
@@ -24,6 +25,7 @@ class Transaksi extends Component
         $this->transaksiAktif->kode = 'INV/' . date('YmdHis');
         $this->transaksiAktif->total = 0;
         $this->transaksiAktif->status = 'pending';
+        $this->transaksiAktif->user_id = Auth::id();
         $this->transaksiAktif->save();
     }
 
@@ -105,7 +107,7 @@ class Transaksi extends Component
         $this->transaksiAktif->save();
     
         $pdf = Pdf::loadView('livewire.nota', [
-            'transaksi' => $transaksi,
+            'transaksi' => $transaksi->load('kasir'),
             'produk' => DetilTransaksi::where('transaksi_id', $transaksi->id)->get()
         ]);
     
