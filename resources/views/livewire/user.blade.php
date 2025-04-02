@@ -19,7 +19,7 @@
 
         <!-- Tabel Data Pengguna -->
         @if ($pilihanMenu == 'lihat')
-        <div class="bg-[#5C3A2C] w-full h-auto mt-10 p-6 rounded-lg shadow-lg">
+        <div class="bg-[#5C3A2C] w-full min-h-[450px] mt-10 p-6 rounded-lg shadow-lg">
             <table class="w-full border border-[#A67C52] text-center">
                 <thead class="bg-[#A67C52] text-white">
                     <tr>
@@ -31,9 +31,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($semuaPengguna as $pengguna)
+                    @foreach ($semuaPengguna as $index => $pengguna)
                     <tr class="border border-[#A67C52]">
-                        <td class="py-3">{{ $loop->iteration }}</td>
+                        <td class="py-3">{{ $semuaPengguna->firstItem() + $index }}</td>
                         <td class="py-3">{{ $pengguna->name }}</td>
                         <td class="py-3">{{ $pengguna->email }}</td>
                         <td class="py-3">{{ $pengguna->role }}</td>
@@ -51,7 +51,67 @@
                     @endforeach
                 </tbody>
             </table>
+        
+            <!-- Pagination -->
+            <div class="mt-6 flex justify-center">
+                <div class="flex items-center space-x-1 bg-[#A67C52] text-white rounded-full px-3 py-1 shadow-md">
+                    
+                    <!-- Tombol Prev -->
+                    @if ($semuaPengguna->onFirstPage())
+                        <span class="px-2 py-1 flex items-center bg-[#8B5E3C] rounded-full cursor-not-allowed opacity-50 text-sm">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" stroke-width="2" 
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Prev
+                        </span>
+                    @else
+                        <a href="{{ $semuaPengguna->previousPageUrl() }}" 
+                            class="px-2 py-1 flex items-center bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" stroke-width="2" 
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Prev
+                        </a>
+                    @endif
+            
+                    <!-- Nomor Halaman -->
+                    @foreach ($semuaPengguna->links()->elements[0] as $page => $url)
+                        @if ($page == $semuaPengguna->currentPage())
+                            <span class="px-2 py-1 bg-white text-[#A67C52] font-bold rounded-full shadow-sm text-sm">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}" 
+                                class="px-2 py-1 bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+            
+                    <!-- Tombol Next -->
+                    @if ($semuaPengguna->hasMorePages())
+                        <a href="{{ $semuaPengguna->nextPageUrl() }}" 
+                            class="px-2 py-1 flex items-center bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
+                            Next
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" stroke-width="2" 
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    @else
+                        <span class="px-2 py-1 flex items-center bg-[#8B5E3C] rounded-full cursor-not-allowed opacity-50 text-sm">
+                            Next
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" stroke-width="2" 
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    @endif
+            
+                </div>
+            </div>                              
         </div>
+        
 
         <!-- Form Tambah & Edit Pengguna -->
         @elseif ($pilihanMenu == 'tambah' || $pilihanMenu == 'edit')

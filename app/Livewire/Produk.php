@@ -37,9 +37,8 @@ class Produk extends Component
 
     public function render()
     {
-        return view('livewire.produk')->with([
-            'semuaProduk' => ModelProduk::all(),
-        ]);
+        $semuaProduk = ModelProduk::paginate(10); 
+        return view('livewire.produk', compact('semuaProduk'));
     }
 
     public $kode,$nama, $harga, $stok;

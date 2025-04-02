@@ -18,7 +18,8 @@ class User extends Component
 
     public function render(): View
     {
-        return view('livewire.user')->with(['semuaPengguna' => ModelUser::all()]);
+        $semuaPengguna = ModelUser::paginate(5); // Pastikan pakai pagination
+        return view('livewire.user', compact('semuaPengguna'));
     }
 
     public $nama, $email, $password, $peran;

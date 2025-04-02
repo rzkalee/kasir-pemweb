@@ -1,21 +1,30 @@
-<div class="items-center justify-between bg-[#5C3A2C] h-[450px] px-10 py-5 rounded-lg shadow-md overflow-hidden">
-    <div class=" text-[#C5A787] max-w-lg">
+<div class="max-w-6xl mx-auto p-6 bg-[#5C3A2C] rounded-lg shadow-md overflow-hidden">
+    <!-- Judul Laporan -->
+    <div class="text-[#C5A787] max-w-lg mb-6">
         <h1 class="text-5xl font-bold tracking-wide drop-shadow-lg">LAPORAN TRANSAKSI</h1>
-        <a href="{{ url('/cetak') }}" target="_blank" class="bg-[#C5A787] text-[#301f17] py-3 px-8 rounded-lg">Cetak</a>
-        <table class="bg-[#C5A787]">
-            <thead class="text-[#5C3A2C]">
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>No. Inv.</th>
-                <th>Total</th>
+        <a href="{{ url('/cetak') }}" target="_blank" class="bg-[#C5A787] text-[#301f17] py-3 px-8 rounded-lg mt-4 inline-block">
+            Cetak
+        </a>
+    </div>
+
+    <!-- Tabel Laporan -->
+    <div class="overflow-x-auto">
+        <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+            <thead class="bg-[#5C3A2C] text-white">
+                <tr>
+                    <th class="px-4 py-2">No</th>
+                    <th class="px-4 py-2">Tanggal</th>
+                    <th class="px-4 py-2">No. Inv.</th>
+                    <th class="px-4 py-2">Total</th>
+                </tr>
             </thead>
-            <tbody class="text-[#5C3A2C]">
+            <tbody class="text-center text-[#5C3A2C]">
                 @foreach ($semuaTransaksi as $transaksi)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $transaksi->created_at }}</td>
-                        <td>{{ $transaksi->kode }}</td>
-                        <td>{{ number_format($transaksi->total, 2, ',', '.') }}</td>
+                    <tr class="border-t">
+                        <td class="px-4 py-2 text-white">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2 text-white">{{ $transaksi->created_at }}</td>
+                        <td class="px-4 py-2 text-white">{{ $transaksi->kode }}</td>
+                        <td class="px-4 py-2 text-white">Rp {{ number_format($transaksi->total, 2, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
