@@ -21,7 +21,7 @@
             <div class="w-2/3">
                 <div class="p-6 bg-[#5C3A2C] rounded-lg border border-[#A67C52]">
                     <h4 class="text-xl font-semibold">No Invoice : {{ $transaksiAktif->kode }}</h4>
-                    <input type="text" class="w-full p-2 mt-2 bg-[#8B5E3C] text-white rounded-lg border border-[#A67C52]" placeholder="No. Invoice" wire:model.live="kode">
+                    <input type="text" class="w-full p-2 mt-2 bg-[#8B5E3C] text-white rounded-lg border border-[#A67C52]" placeholder="Kode Barang" wire:model.live="kode">
                     <table class="w-full mt-4 border border-[#A67C52]">
                         <thead>
                             <tr class="bg-[#A67C52] text-white">

@@ -17,13 +17,19 @@ class DataAwal extends Seeder
                 'role' => 'admin',
             ],
             [
-                'name' => 'Kasir',
-                'email' => 'kasir@kasir.com',
+                'name' => 'Siti',
+                'email' => 'kasirsiti@kasir.com',
                 'password' => bcrypt('12345678'),
                 'role' => 'kasir',
             ],
             [
-                'name' => 'Manager',
+                'name' => 'Walid',
+                'email' => 'kasirwalid@kasir.com',
+                'password' => bcrypt('12345678'),
+                'role' => 'kasir',
+            ],
+            [
+                'name' => 'Rizka Fatihah',
                 'email' => 'manager@kasir.com',
                 'password' => bcrypt('12345678'),
                 'role' => 'manager',
