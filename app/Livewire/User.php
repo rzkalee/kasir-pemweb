@@ -48,7 +48,7 @@ class User extends Component
         $simpan->save();
 
         $this->reset('nama', 'email', 'password', 'peran');
-        $this->pilihanMenu('lihat');
+        $this->pilihMenu('lihat');
     }
 
     public $penggunaTerpilih;

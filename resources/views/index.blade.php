@@ -73,27 +73,74 @@
     </header>
     
     <!-- Pilihan Produk -->
-    <section id="produk" class="mt-16 max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-[#A67C52] p-6 rounded-2xl text-center border border-[#6D4C41]">
-            <h1 class="text-xl font-semibold">Batik Tradisional</h1>
-            <p class="text-sm mt-2">Keindahan klasik yang tak lekang oleh waktu.</p>
+    <section id="produk" class="mt-16 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 mx-auto px-4">
+        <div class="bg-[#A67C52] p-6 rounded-2xl text-center border border-[#6D4C41] max-w-xs mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <div class="w-full aspect-[3/4] mb-4 overflow-hidden rounded-xl">
+            <img src="{{ asset('images/batiktradisional.jpg') }}" alt="Batik Tradisional"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <h1 class="text-xl font-semibold text-white" style="font-family: 'Playfair Display', serif;">Batik Tradisional</h1>
+          <p class="text-sm mt-2 text-white">Keindahan klasik yang tak lekang oleh waktu.</p>
         </div>
-        <div class="bg-[#8B5E3C] p-6 rounded-2xl text-center border border-[#6D4C41]">
-            <h1 class="text-xl font-semibold">Batik Modern</h1>
-            <p class="text-sm mt-2">Sentuhan baru dengan desain kontemporer.</p>
+      
+        <div class="bg-[#A67C52] p-6 rounded-2xl text-center border border-[#6D4C41] max-w-xs mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <div class="w-full aspect-[3/4] mb-4 overflow-hidden rounded-xl">
+            <img src="{{ asset('images/batikmodern1.jpg') }}" alt="Batik Modern"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <h1 class="text-xl font-semibold text-white" style="font-family: 'Playfair Display', serif;">Batik Modern</h1>
+          <p class="text-sm mt-2 text-white">Keindahan klasik yang tak lekang oleh waktu.</p>
         </div>
-        <div class="bg-[#A67C52] p-6 rounded-2xl text-center border border-[#6D4C41]">
-            <h1 class="text-xl font-semibold">Custom Design</h1>
-            <p class="text-sm mt-2">Pesan batik sesuai keinginan Anda.</p>
-        </div>
-    </section>
+      </section>        
 
     <!-- Keunggulan -->
-    <section id="keunggulan" class="mt-16 text-center max-w-3xl bg-[#5C3A2C] p-8 rounded-lg border border-[#A67C52]">
-        <h2 class="text-3xl font-bold">Keunggulan Kami</h2>
-        <p class="mt-4 text-lg font-light">Menghadirkan batik berkualitas tinggi dengan desain unik dan bahan terbaik.</p>
-    </section>
-
+    <section id="keunggulan" class="w-full h-fit mt-20 text-center bg-[#4B2E1C] p-10 rounded-3xl border border-[#A67C52] text-white shadow-2xl">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-wide text-[#F5E9DC]" style="font-family: 'Playfair Display', serif;">
+          Keunggulan Kami
+        </h2>
+        <p class="text-lg md:text-xl font-light mb-12 text-[#f1e7df] max-w-2xl mx-auto italic">
+          Menghadirkan batik berkualitas tinggi dengan desain unik dan bahan terbaik.
+        </p>
+      
+        <ul class="text-left max-w-3xl mx-auto space-y-6 text-base font-light text-[#fdf9f5]">
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Kualitas Premium</strong> – Bahan pilihan yang nyaman, awet, dan ramah di kulit.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Motif Eksklusif & Unik</strong> – Desain tidak pasaran, penuh makna dan estetika budaya.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">100% Handmade</strong> – Dikerjakan langsung oleh pengrajin batik berpengalaman.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Dukung UMKM Lokal</strong> – Ikut menghidupkan perajin batik lokal.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Ramah Lingkungan</strong> – Pewarna alami & proses produksi berkelanjutan.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Kemasan Eksklusif</strong> – Rapi, menarik, cocok untuk koleksi atau hadiah.
+            </span>
+          </li>
+          <li class="group flex gap-3 items-start border-l-4 border-[#A67C52] pl-4">
+            <span class="transition-transform duration-300 group-hover:translate-x-2">
+              <strong class="font-semibold">Bisa Custom</strong> – Tersedia desain & ukuran sesuai permintaan Anda.
+            </span>
+          </li>
+        </ul>
+      </section>
+      
     <!-- Informasi Lokasi dan Kontak -->
     <section id="lokasi" class="mt-16 text-center max-w-3xl bg-[#8B5E3C] p-8 rounded-lg border border-[#A67C52]">
         <h2 class="text-3xl font-bold">Lokasi & Kontak</h2>
