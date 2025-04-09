@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    <h3>Total: Rp {{ number_format($transaksi->total, 2, ',', '.') }}</h3>
+    <h3>Total: Rp {{ number_format($transaksi->total, 0, ',', '.') }}</h3>
     <p>Terima kasih telah berbelanja!</p>
 </body>
 </html>

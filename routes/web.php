@@ -6,6 +6,7 @@ use App\Livewire\Produk;
 use App\Livewire\Transaksi;
 use App\Livewire\User;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CetakController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::get('/laporan', Laporan::class)->middleware(['auth'])->name('laporan');
 Route::get('/produk', Produk::class)->middleware(['auth'])->name('produk');
 Route::get('/transaksi', Transaksi::class)->middleware(['auth'])->name('transaksi');
 Route::get('/cetak', [HomeController::class, 'cetak']);
+Route::get('/cetak', [CetakController::class, 'cetak']);

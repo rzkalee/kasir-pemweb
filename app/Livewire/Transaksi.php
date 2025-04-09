@@ -155,4 +155,8 @@ class Transaksi extends Component
             ->sum(fn($detil) => $detil->jumlah * $detil->produk->harga);
     }
 
+    public function kasir()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

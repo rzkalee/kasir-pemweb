@@ -3,65 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Transaksi</title>
+    <title>Laporan Transaksi - Dewata Ethnic</title>
 
-    <!-- Bootstrap CSS (Jika dibutuhkan) -->
+    <!-- Bootstrap (opsional, untuk grid & table) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    
+
     <style>
-        /* Styling khusus untuk cetak */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #000;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .report-header h2 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .report-header h5 {
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .info-table {
+            margin-bottom: 20px;
+        }
+
+        .info-table td {
+            padding: 4px 8px;
+        }
+
         @media print {
-            body {
+            .btn-cetak {
+                display: none;
+            }
+
+            table {
                 font-size: 12px;
             }
-            .btn-cetak {
-                display: none; /* Sembunyikan tombol cetak saat dicetak */
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            th, td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2;
+
+            .signature {
+                margin-top: 80px;
             }
         }
-    </style>
 
+        .signature {
+            margin-top: 60px;
+            text-align: right;
+        }
+
+        .signature p {
+            margin-bottom: 80px;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container mt-4">
-        <div class="text-center">
-            <h2 class="mb-3">Laporan Transaksi</h2>
-            <p>{{ now()->format('d F Y') }}</p> <!-- Menampilkan tanggal hari ini -->
+
+        <!-- Header -->
+        <div class="report-header">
+            <h2>Dewata Ethnic</h2>
+            <h5>Laporan Transaksi</h5>
+            <small>Tanggal Cetak: {{ now()->format('d F Y') }}</small>
         </div>
 
-        <table class="table table-bordered">
+        <!-- Tabel Transaksi -->
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
+                    <th style="width: 5%;">No</th>
+                    <th style="width: 20%;">Tanggal</th>
                     <th>No. Inv</th>
                     <th>Total</th>
+                    <th>Kasir</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($semuaTransaksi as $transaksi)
+                @forelse ($semuaTransaksi as $transaksi)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d/m/Y H:i') }}</td>
                         <td>{{ $transaksi->kode }}</td>
-                        <td>Rp. {{ number_format($transaksi->total, 2, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($transaksi->total, 0, ',', '.') }}</td>
+                        <td>{{ $transaksi->kasir->name ?? 'Tidak Diketahui' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada data transaksi.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
 
+        <!-- Signature -->
+        <div class="signature">
+            <p>Disetujui oleh,</p>
+            <p><strong>Manager / Atasan</strong></p>
+        </div>
+
+        <!-- Tombol Cetak -->
         <button class="btn btn-primary btn-cetak mt-3" onclick="window.print()">Cetak Laporan</button>
     </div>
 

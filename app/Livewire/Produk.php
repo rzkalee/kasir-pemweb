@@ -30,10 +30,6 @@ class Produk extends Component
 
     public $pilihanMenu = 'lihat';
 
-    public function pilihMenu($menu): void
-    {
-        $this->pilihanMenu = $menu;
-    }
 
     public function render()
     {
