@@ -20,6 +20,9 @@
         <!-- Tabel Data Pengguna -->
         @if ($pilihanMenu == 'lihat')
         <div class="bg-[#5C3A2C] w-full min-h-[450px] mt-10 p-6 rounded-lg shadow-lg">
+            <h1 class="text-[#C5A787] text-3xl font-bold uppercase tracking-wide drop-shadow-lg text-center mb-4">
+                DAFTAR PENGGUNA
+            </h1>
             <table class="w-full border border-[#A67C52] text-center">
                 <thead class="bg-[#A67C52] text-white">
                     <tr>

@@ -1,4 +1,4 @@
-<div class="bg-[#4E2A1D] p-6 rounded-lg shadow-lg">
+<div class="bg-[#4E2A1D] rounded-lg shadow-lg">
     <!-- Tombol Navigasi -->
     <div class="flex space-x-4">
         <button wire:click="pilihMenu('lihat')" 
@@ -24,6 +24,14 @@
     <!-- Tabel Data Produk -->
     @if ($pilihanMenu == 'lihat')
     <div class="bg-[#5C3A2C] w-full min-h-[450px] mt-10 p-6 rounded-lg shadow-lg">
+        <h1 class="text-[#C5A787] text-3xl font-bold uppercase tracking-wide drop-shadow-lg text-center">
+            DAFTAR PRODUK
+        </h1>
+        <div class="flex justify-end space-x-2 mb-4">
+            <button wire:click="cetakSemua('pdf')" class="px-4 py-2 bg-[#A67C52] text-white rounded-lg hover:bg-[#8B5E3C] transition">
+                Cetak Semua (PDF)
+            </button>
+        </div>        
         <table class="w-full border border-[#A67C52] text-center">
             <thead class="bg-[#A67C52] text-white">
                 <tr>
@@ -52,6 +60,10 @@
                             class="px-4 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
                             Hapus
                         </button>
+                        <button wire:click="cetakSatu({{ $produk->id }})"
+                            class="px-4 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Cetak
+                        </button>                        
                     </td>
                 </tr>
                 @endforeach

@@ -8,6 +8,8 @@ use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\Produk as ImportProduk;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Milon\Barcode\DNS1D;
 
 class Produk extends Component
 {
@@ -118,6 +120,20 @@ class Produk extends Component
 
         $this->reset('kode', 'nama', 'harga', 'stok', 'produkTerpilih');
         $this->pilihMenu('lihat');
+    }
+
+    public function cetakSemua($format)
+    {
+        $produk = ModelProduk::all();
+        $pdf = Pdf::loadView('livewire.produk-barcode', compact('produk'));
+        return response()->streamDownload(fn () => print($pdf->stream()), 'semua-barcode.pdf');
+    }    
+
+    public function cetakSatu($id)
+    {
+        $produk = ModelProduk::findOrFail($id);
+        $pdf = Pdf::loadView('livewire.produk-barcode-single', compact('produk'));
+        return response()->streamDownload(fn () => print($pdf->stream()), 'barcode-'.$produk->kode.'.pdf');
     }
 
 }
