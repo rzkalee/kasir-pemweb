@@ -93,11 +93,11 @@
                                         <path d="M12 16v-4m0-4h.01"></path>
                                     </svg>
                                 @endif
-                            
+
                                 {{ Auth::user()->name }}
-                            </button>                                                                                
+                            </button>
                             <div id="dropdown-menu" class="absolute right-0 mt-2 bg-[#5C3A2C] border border-[#A67C52] rounded-lg shadow-lg hidden">
-                                <a href="{{ route('logout') }}" 
+                                <a href="{{ route('logout') }}"
                                    class="block px-4 py-2 text-white hover:bg-[#A67C52]"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
@@ -106,7 +106,7 @@
                                     @csrf
                                 </form>
                             </div>
-                        </li>                                        
+                        </li>
                     @endguest
                 </ul>
             </div>

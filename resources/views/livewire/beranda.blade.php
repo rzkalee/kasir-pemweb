@@ -42,7 +42,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['totalUser'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Total Produk -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -56,7 +56,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['totalProduk'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Total Stok -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -70,7 +70,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['totalStok'] }}</p>
                 </div>
             </div>
-    
+
         @elseif (auth()->user()->role == 'kasir')
             <!-- Transaksi Hari Ini -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
@@ -85,7 +85,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['jumlahTransaksi'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Produk Terjual -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -99,7 +99,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['produkTerjual'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Pemasukan Hari Ini -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -113,7 +113,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">Rp {{ number_format($data['pemasukanHariIni'], 0, ',', '.') }}</p>
                 </div>
             </div>
-    
+
         @elseif (auth()->user()->role == 'manager')
             <!-- Transaksi Bulan Ini -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
@@ -128,7 +128,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['jumlahTransaksi'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Produk Terjual Bulan Ini -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -142,7 +142,7 @@
                     <p class="text-3xl font-bold text-[#C5A787]">{{ $data['produkTerjual'] }}</p>
                 </div>
             </div>
-    
+
             <!-- Pemasukan Bulan Ini -->
             <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white flex items-center space-x-4">
                 <div class="text-[#C5A787]">
@@ -157,5 +157,92 @@
                 </div>
             </div>
         @endif
-    </div>    
+    </div>
+
+    <div class="w-full mt-12 px-6">
+        <div class="bg-[#5C3A2C] rounded-2xl p-6 shadow-lg text-white">
+            <h2 class="text-xl font-bold text-[#C5A787] mb-4 text-center uppercase tracking-wide">
+                Grafik Pemasukan Bulanan
+            </h2>
+            <div class="relative h-[300px]">
+                <canvas id="pemasukanChart"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    const pemasukanData = @json($pemasukanBulanan);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('pemasukanChart').getContext('2d');
+
+    const pemasukanChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+            datasets: [{
+                label: 'Pemasukan (Rp)',
+                data: pemasukanData, // ← dari backend
+                backgroundColor: '#C5A787',
+                borderColor: '#fff',
+                borderWidth: 1,
+                hoverBackgroundColor: '#D2B48C'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#C5A787',
+                        font: {
+                            size: 14,
+                            family: "'Poppins', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.raw.toLocaleString('id-ID');
+                            return 'Rp ' + value;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#C5A787',
+                        font: {
+                            family: "'Poppins', sans-serif"
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#C5A787',
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        },
+                        font: {
+                            family: "'Poppins', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: '#7c5e4f'
+                    }
+                }
+            }
+        }
+    });
+</script>

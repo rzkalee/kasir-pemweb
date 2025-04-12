@@ -12,11 +12,26 @@ use Livewire\Component;
 class Beranda extends Component
 {
     public $data = [];
+public $pemasukanBulanan = [];
 
-    public function mount()
-    {
-        $user = Auth::user();
+public function mount()
+{
+    $user = Auth::user();
 
+    // Pemasukan per bulan (untuk semua role, biar aman)
+    $pemasukan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = str_pad($i, 2, '0', STR_PAD_LEFT);
+            $tahunBulan = now()->format('Y') . '-' . $bulan;
+
+            $pemasukan[] = Transaksi::where('status', 'selesai')
+                ->where('created_at', 'like', "$tahunBulan%")
+                ->sum('total');
+        }
+
+        $this->pemasukanBulanan = $pemasukan;
+
+        // Role-based data
         if ($user->role === 'admin') {
             $this->data = [
                 'totalUser' => User::count(),
@@ -25,7 +40,6 @@ class Beranda extends Component
             ];
         } elseif ($user->role === 'kasir') {
             $today = now()->toDateString();
-
             $transaksiHariIni = Transaksi::whereDate('created_at', $today)
                 ->where('user_id', $user->id)
                 ->where('status', 'selesai');
@@ -37,9 +51,8 @@ class Beranda extends Component
             ];
         } elseif ($user->role === 'manager') {
             $bulanIni = now()->format('Y-m');
-
             $transaksiBulanIni = Transaksi::where('status', 'selesai')
-                ->where('created_at', 'like', $bulanIni . '%');
+                ->where('created_at', 'like', "$bulanIni%");
 
             $this->data = [
                 'jumlahTransaksi' => $transaksiBulanIni->count(),
@@ -48,6 +61,7 @@ class Beranda extends Component
             ];
         }
     }
+
 
     public function render()
     {
