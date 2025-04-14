@@ -9,20 +9,31 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\Produk as ImportProduk;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Livewire\WithPagination;
 use Milon\Barcode\DNS1D;
 
 class Produk extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     public $fileExcel;
+    protected $paginationTheme = 'tailwind';
+    protected $queryString = ['page'];
 
     public function imporExcel(): void
     {
-        Excel::import(new ImportProduk, $this->fileExcel);
-        $this->reset();
-    }
-
+        $this->validate([
+            'fileExcel' => 'required|file|mimes:xls,xlsx'
+        ]);
+    
+        $path = $this->fileExcel->getRealPath();
+    
+        Excel::import(new ImportProduk, $path);
+    
+        $this->reset('fileExcel');
+    }    
+    
     public function mount(): void
     {
         if (Auth::user()->role != 'admin') {
@@ -32,6 +43,10 @@ class Produk extends Component
 
     public $pilihanMenu = 'lihat';
 
+    public function pilihMenu($menu): void
+    {
+        $this->pilihanMenu = $menu;
+    }
 
     public function render()
     {
@@ -64,7 +79,7 @@ class Produk extends Component
         $simpan->save();
 
         $this->reset('kode', 'nama', 'harga', 'stok');
-        $this->pilihanMenu('lihat');
+        $this->pilihMenu('lihat');
     }
 
     public $produkTerpilih;

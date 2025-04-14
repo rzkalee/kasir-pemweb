@@ -70,63 +70,10 @@
             </tbody>
         </table>
 
-        <div class="mt-6 flex justify-center">
-            <div class="flex items-center space-x-1 bg-[#A67C52] text-white rounded-full px-3 py-1 shadow-md">
-                
-                <!-- Tombol Prev -->
-                @if ($semuaProduk->onFirstPage())
-                    <span class="px-2 py-1 flex items-center bg-[#8B5E3C] rounded-full cursor-not-allowed opacity-50 text-sm">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" stroke-width="2" 
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        Prev
-                    </span>
-                @else
-                    <a href="{{ $semuaProduk->previousPageUrl() }}" 
-                        class="px-2 py-1 flex items-center bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" stroke-width="2" 
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        Prev
-                    </a>
-                @endif
-        
-                <!-- Nomor Halaman -->
-                @foreach ($semuaProduk->links()->elements[0] as $page => $url)
-                    @if ($page == $semuaProduk->currentPage())
-                        <span class="px-2 py-1 bg-white text-[#A67C52] font-bold rounded-full shadow-sm text-sm">{{ $page }}</span>
-                    @else
-                        <a href="{{ $url }}" 
-                            class="px-2 py-1 bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
-                            {{ $page }}
-                        </a>
-                    @endif
-                @endforeach
-        
-                <!-- Tombol Next -->
-                @if ($semuaProduk->hasMorePages())
-                    <a href="{{ $semuaProduk->nextPageUrl() }}" 
-                        class="px-2 py-1 flex items-center bg-[#5C3A2C] rounded-full hover:bg-[#8B5E3C] transition duration-300 text-sm">
-                        Next
-                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" stroke-width="2" 
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                @else
-                    <span class="px-2 py-1 flex items-center bg-[#8B5E3C] rounded-full cursor-not-allowed opacity-50 text-sm">
-                        Next
-                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" stroke-width="2" 
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </span>
-                @endif
-        
-            </div>
-        </div>   
+        {{-- Pagination Livewire otomatis dengan Tailwind --}}
+        <div class="mt-6">
+            {{ $semuaProduk->links() }} 
+        </div>
     </div>
     
     <!-- Form Tambah & Edit Produk -->
